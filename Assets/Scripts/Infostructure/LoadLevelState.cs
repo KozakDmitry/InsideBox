@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Scripts.CameraLogic;
+using UnityEngine;
 
 namespace Scripts.Infostructure
 {
@@ -14,12 +16,30 @@ namespace Scripts.Infostructure
 
         }
 
-        public void Enter(string sceneName) => 
-            _sceneLoader.Load(sceneName);
+        public void Enter(string sceneName) =>
+            _sceneLoader.Load(sceneName, OnLoaded);
+
+
+        private void OnLoaded()
+        {
+            GameObject hero = InstantiatePrefab("Hero/hero");
+            InstantiatePrefab("HUD/HUD");
+            BindCamera(hero);
+        }
+
+        private void BindCamera(GameObject hero) =>
+            Camera.main.GetComponent<CameraFollow>().Follow(hero);
+
+
+        private static GameObject InstantiatePrefab(string path)
+        {
+            GameObject prefab = Resources.Load<GameObject>(path);
+            return Object.Instantiate(prefab);
+        }
 
         public void Exit()
         {
-            
+
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Scripts.Hero
     {
         public CharacterController characterController;
         public float movementSpeed;
-        private Camera _camera;
         private IInputService _inputService;
         private void Awake()
         {
@@ -19,8 +18,7 @@ namespace Scripts.Hero
 
         private void Start()
         {
-            _camera = Camera.main;
-            BindCamera();
+            
         }
 
        
@@ -31,7 +29,7 @@ namespace Scripts.Hero
 
             if (_inputService.Axis.sqrMagnitude > Constants.epsilon)
             {
-                movementVector = _camera.transform.TransformDirection(_inputService.Axis);
+                movementVector = Camera.main.transform.TransformDirection(_inputService.Axis);
                 movementVector.y = 0;
                 movementVector.Normalize();
 
@@ -43,7 +41,6 @@ namespace Scripts.Hero
             characterController.Move(movementVector * (movementSpeed * Time.deltaTime));
         }
 
-        private void BindCamera() =>
-            _camera.GetComponent<CameraFollow>().Follow(gameObject);
+      
     }
 }

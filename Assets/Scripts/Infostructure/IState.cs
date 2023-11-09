@@ -10,7 +10,7 @@
 
     public interface IPayloadedState<TPayload> :IExitableState
     {
-        void Enter(TPayload);
+        void Enter(TPayload payload);
         void Exit();
     }
     public interface IExitableState
