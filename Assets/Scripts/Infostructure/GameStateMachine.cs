@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Logic;
 using UnityEngine;
 
 namespace Scripts.Infostructure
@@ -10,28 +11,30 @@ namespace Scripts.Infostructure
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCertain certain)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader)
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, certain),
+                [typeof(GameLoopState)] = new GameLoopState(this)
+
 
             };
         }
-        public void Enter<TState>() where TState : class,IState
+        public void Enter<TState>() where TState : class, IState
         {
             IState state = ChangeState<TState>();
             state.Enter();
         }
 
-      
 
 
-        public void Enter<TState, TPayload>(TPayload payload) where TState : class,IPayloadedState<TPayload>
+
+        public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
             TState state = ChangeState<TState>();
-            state.Enter(payload); 
+            state.Enter(payload);
 
         }
 
@@ -43,7 +46,7 @@ namespace Scripts.Infostructure
             return state;
         }
 
-        private TState GetState<TState>() where TState : class,IExitableState => 
+        private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
     }
 }

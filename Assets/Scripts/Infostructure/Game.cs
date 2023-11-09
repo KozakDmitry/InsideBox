@@ -1,4 +1,6 @@
-﻿using Scripts.Services.Input;
+﻿using Scripts.Logic;
+using Scripts.Services.Input;
+
 
 namespace Scripts.Infostructure
 {
@@ -7,9 +9,9 @@ namespace Scripts.Infostructure
         public static IInputService inputService;
         public GameStateMachine _stateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner)
+        public Game(ICoroutineRunner coroutineRunner, LoadingCertain certain)
         {
-            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
+            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), certain);
         }
 
     }

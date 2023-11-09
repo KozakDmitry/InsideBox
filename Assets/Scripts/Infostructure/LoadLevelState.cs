@@ -1,6 +1,8 @@
 ﻿
 using Scripts.CameraLogic;
+using Scripts.Logic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Infostructure
 {
@@ -8,23 +10,30 @@ namespace Scripts.Infostructure
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-
-        public LoadLevelState(GameStateMachine StateMachine, SceneLoader sceneLoader)
+        private readonly LoadingCertain _certain;
+        private const string InitialPointTag = "InitialPoint";
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain)
         {
-            _stateMachine = StateMachine;
+            _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-
+            _certain = certain;
         }
 
-        public void Enter(string sceneName) =>
+        public void Enter(string sceneName)
+        {
+            _certain.Show();
             _sceneLoader.Load(sceneName, OnLoaded);
+        }
 
 
         private void OnLoaded()
         {
-            GameObject hero = InstantiatePrefab("Hero/hero");
+           
+            var initialPoint = GameObject.FindWithTag(InitialPointTag);
+            GameObject hero = InstantiatePrefab("Hero/hero", Vector3.zero);
             InstantiatePrefab("HUD/HUD");
             BindCamera(hero);
+            _stateMachine.Enter<GameLoopState>();
         }
 
         private void BindCamera(GameObject hero) =>
@@ -35,11 +44,13 @@ namespace Scripts.Infostructure
         {
             GameObject prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab);
-        }
-
-        public void Exit()
+        } 
+        private static GameObject InstantiatePrefab(string path,Vector3 place)
         {
-
+            GameObject prefab = Resources.Load<GameObject>(path);
+            return Object.Instantiate(prefab,place, Quaternion.identity);
         }
+        public void Exit() =>
+            _certain.Hide();
     }
 }
