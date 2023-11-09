@@ -23,7 +23,7 @@ namespace Scripts.Infostructure
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState>();
+            _stateMachine.Enter<LoadLevelState, string>("Main");
 
         private void RegisterServices() => 
             SelectInputService();
