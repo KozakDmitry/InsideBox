@@ -1,4 +1,4 @@
-﻿namespace Scripts.Infostructure
+﻿namespace Infostructure.States
 {
     public interface IState :IExitableState
     {

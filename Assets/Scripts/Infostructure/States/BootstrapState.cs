@@ -1,8 +1,10 @@
-﻿using Scripts.Services.Input;
-using System;
+﻿using Infostructure.AssetManagеment;
+using Infostructure.Factory;
+using Scripts.Infostructure;
+using Scripts.Services.Input;
 using UnityEngine;
 
-namespace Scripts.Infostructure
+namespace Infostructure.States
 {
     public class BootstrapState : IState
     {
@@ -25,10 +27,13 @@ namespace Scripts.Infostructure
         private void EnterLoadLevel() =>
             _stateMachine.Enter<LoadLevelState, string>("Main");
 
-        private void RegisterServices() => 
-            SelectInputService();
+        public void RegisterServices()
+        {
+            AllServices.Container.RegisterSingle<IInputService>(Game.inputService);
+            AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssets>()));
+        }
 
-        private static void SelectInputService()
+        private static void InputService()
         {
             if (Application.isEditor)
             {

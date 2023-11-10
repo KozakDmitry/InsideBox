@@ -13,7 +13,7 @@ namespace Scripts.Hero
         private IInputService _inputService;
         private void Awake()
         {
-            _inputService = Game.inputService;
+            _inputService = AllServices.Container.Single<IInputService>();
         }
 
         private void Start()

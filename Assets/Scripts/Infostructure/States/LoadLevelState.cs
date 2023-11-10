@@ -1,8 +1,10 @@
-﻿using Scripts.CameraLogic;
+﻿using Infostructure.Factory;
+using Scripts.CameraLogic;
+using Scripts.Infostructure;
 using Scripts.Logic;
 using UnityEngine;
 
-namespace Scripts.Infostructure
+namespace Infostructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using Scripts.Infostructure;
 using Scripts.Logic;
-using UnityEngine;
 
-namespace Scripts.Infostructure
+namespace Infostructure.States
 {
     public class GameStateMachine
     {
