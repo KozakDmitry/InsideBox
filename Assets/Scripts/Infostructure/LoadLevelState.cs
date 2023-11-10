@@ -1,8 +1,6 @@
-﻿
-using Scripts.CameraLogic;
+﻿using Scripts.CameraLogic;
 using Scripts.Logic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Scripts.Infostructure
 {
@@ -11,7 +9,11 @@ namespace Scripts.Infostructure
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCertain _certain;
+        private readonly IGameFactory _gameFactory;
+
+
         private const string InitialPointTag = "InitialPoint";
+     
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain)
         {
             _stateMachine = stateMachine;
@@ -28,10 +30,8 @@ namespace Scripts.Infostructure
 
         private void OnLoaded()
         {
-           
-            var initialPoint = GameObject.FindWithTag(InitialPointTag);
-            GameObject hero = InstantiatePrefab("Hero/hero", Vector3.zero);
-            InstantiatePrefab("HUD/HUD");
+            GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
+            _gameFactory.CreateHUD();
             BindCamera(hero);
             _stateMachine.Enter<GameLoopState>();
         }
@@ -40,16 +40,6 @@ namespace Scripts.Infostructure
             Camera.main.GetComponent<CameraFollow>().Follow(hero);
 
 
-        private static GameObject InstantiatePrefab(string path)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        } 
-        private static GameObject InstantiatePrefab(string path,Vector3 place)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab,place, Quaternion.identity);
-        }
         public void Exit() =>
             _certain.Hide();
     }
