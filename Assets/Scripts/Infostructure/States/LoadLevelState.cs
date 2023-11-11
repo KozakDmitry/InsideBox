@@ -16,11 +16,12 @@ namespace Infostructure.States
 
         private const string InitialPointTag = "InitialPoint";
      
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain, IGameFactory gameFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _certain = certain;
+            _gameFactory = gameFactory;
         }
 
         public void Enter(string sceneName)

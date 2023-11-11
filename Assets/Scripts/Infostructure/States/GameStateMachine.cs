@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Infostructure.Factory;
 using Scripts.Infostructure;
 using Scripts.Logic;
 
@@ -10,12 +11,13 @@ namespace Infostructure.States
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCertain certain)
+
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCertain certain, AllServices services)
         {
             _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, certain),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader,services),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, certain, services.Single<IGameFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this)
 
 

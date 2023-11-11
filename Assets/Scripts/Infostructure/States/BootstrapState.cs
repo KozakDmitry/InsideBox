@@ -10,17 +10,20 @@ namespace Infostructure.States
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly AllServices _services;
         private const string Initial = "Initial";
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _services = AllServices.Container;
+            _services = services;
+            RegisterServices();
         }
 
         public void Enter()
         {
-            RegisterServices();
             _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
 
@@ -29,24 +32,25 @@ namespace Infostructure.States
 
         public void RegisterServices()
         {
-            AllServices.Container.RegisterSingle<IInputService>(Game.inputService);
-            AllServices.Container.RegisterSingle<IGameFactory>(new GameFactory(AllServices.Container.Single<IAssets>()));
+            _services.RegisterSingle<IInputService>(InputService());
+            _services.RegisterSingle<IAssets>(new AssetProvider());
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
         }
 
-        private static void InputService()
+        private static IInputService InputService()
         {
             if (Application.isEditor)
             {
-                Game.inputService = new StandaloneInputService();
+                return new StandaloneInputService();
             }
             else
             {
-                Game.inputService = new MobileInputService();
+                return new MobileInputService();
             }
         }
         public void Exit()
         {
-          
+
         }
     }
 }
