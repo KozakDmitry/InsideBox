@@ -1,6 +1,6 @@
 ﻿using Scripts.Data;
 
-namespace Scripts.Infostructure.Services.PersistentProgress
+namespace Infostructure.Services.PersistentProgress
 {
     public interface IPersistentProgressService : IService
     {

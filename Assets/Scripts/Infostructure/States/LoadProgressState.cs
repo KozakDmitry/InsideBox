@@ -1,7 +1,7 @@
 ﻿using System;
 using Infostructure.Services.SaveLoad;
 using Scripts.Data;
-using Scripts.Infostructure.Services.PersistentProgress;
+using Infostructure.Services.PersistentProgress;
 
 namespace Infostructure.States
 {
@@ -24,11 +24,10 @@ namespace Infostructure.States
             _gameStateMachine.Enter<LoadLevelState,string>(_progressService.Progress.worldData.PositionOnLevel.Level); 
         }
 
-        private void LoadProgressOrInitNew()
-        {
-            _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
-            
-        }
+        private void LoadProgressOrInitNew() =>
+            _progressService.Progress = 
+                _saveLoadService.LoadProgress() 
+                ?? NewProgress();
 
         private PlayerProgress NewProgress() => 
             new(initialLevel: "Main");

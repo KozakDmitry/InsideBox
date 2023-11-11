@@ -12,5 +12,11 @@ namespace Scripts.Data
 
         public static Vector3 AsUnityVector(this Vector3Data vector) => 
             new(vector.x,vector.y,vector.z);
+
+        public static string ToJson(this object obj) =>
+            JsonUtility.ToJson(obj);
+
+        public static T ToDeserialized<T>(this string json) =>
+            JsonUtility.FromJson<T>(json);
     }
 }

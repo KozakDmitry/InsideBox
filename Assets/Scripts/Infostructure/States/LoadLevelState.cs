@@ -1,4 +1,5 @@
 ﻿using Infostructure.Factory;
+using Infostructure.Services.PersistentProgress;
 using Scripts.CameraLogic;
 using Scripts.Infostructure;
 using Scripts.Logic;
@@ -12,31 +13,48 @@ namespace Infostructure.States
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCertain _certain;
         private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
 
 
         private const string InitialPointTag = "InitialPoint";
      
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _certain = certain;
             _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
         {
             _certain.Show();
+            _gameFactory.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
 
         private void OnLoaded()
         {
+            InitGameWorld();
+            InformProgressReader();
+            _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InformProgressReader()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+            {
+                progressReader.LoadProgress(_progressService.Progress);
+            }
+        }
+
+        private void InitGameWorld()
+        {
             GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
             _gameFactory.CreateHUD();
             BindCamera(hero);
-            _stateMachine.Enter<GameLoopState>();
         }
 
         private void BindCamera(GameObject hero) =>

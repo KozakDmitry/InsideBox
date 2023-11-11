@@ -1,7 +1,8 @@
 ﻿using Infostructure.AssetManagеment;
 using Infostructure.Factory;
+using Infostructure.Services.PersistentProgress;
+using Infostructure.Services.SaveLoad;
 using Scripts.Infostructure;
-using Scripts.Infostructure.Services.PersistentProgress;
 using Scripts.Services.Input;
 using UnityEngine;
 
@@ -29,13 +30,14 @@ namespace Infostructure.States
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>("Main");
+            _stateMachine.Enter<LoadProgressState>();
 
         public void RegisterServices()
         {
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
         }
 

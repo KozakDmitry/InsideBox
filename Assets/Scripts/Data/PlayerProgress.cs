@@ -7,7 +7,7 @@ namespace Scripts.Data
 
         public PlayerProgress(string initialLevel)
         {
-            
+            worldData = new WorldData(initialLevel);
         }
     }
 }
