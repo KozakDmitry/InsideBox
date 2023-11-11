@@ -1,12 +1,12 @@
-using System;
-using Scripts.CameraLogic;
-using Scripts.Infostructure;
+using Infostructure.Services.PersistentProgress;
+using Scripts.Data;
 using Scripts.Services.Input;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Hero
 {
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         public CharacterController characterController;
         public float movementSpeed;
@@ -15,13 +15,6 @@ namespace Scripts.Hero
         {
             _inputService = AllServices.Container.Single<IInputService>();
         }
-
-        private void Start()
-        {
-            
-        }
-
-       
 
         private void Update()
         {
@@ -41,6 +34,29 @@ namespace Scripts.Hero
             characterController.Move(movementVector * (movementSpeed * Time.deltaTime));
         }
 
-      
+        public void UpdateProgress(PlayerProgress progress) => 
+            progress.worldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(),transform.position.AsVectorData());
+
+        private static string CurrentLevel() =>
+            SceneManager.GetActiveScene().name;
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            if (CurrentLevel() == progress.worldData.PositionOnLevel.Level)
+            {
+                Vector3Data savedPosition = progress.worldData.PositionOnLevel.Position;
+                if (savedPosition != null)
+                {
+                    Warp(to: savedPosition);
+                }
+            }
+        }
+
+        private void Warp(Vector3Data to)
+        {
+            characterController.enabled = false;
+            transform.position = to.AsUnityVector();
+            characterController.enabled = true;
+        }
     }
 }

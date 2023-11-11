@@ -1,6 +1,7 @@
 ﻿using Infostructure.AssetManagеment;
 using Infostructure.Factory;
 using Scripts.Infostructure;
+using Scripts.Infostructure.Services.PersistentProgress;
 using Scripts.Services.Input;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ namespace Infostructure.States
         {
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
+            _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
         }
 
