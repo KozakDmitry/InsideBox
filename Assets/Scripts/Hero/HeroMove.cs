@@ -33,7 +33,7 @@ namespace Scripts.Hero
 
             characterController.Move(movementVector * (movementSpeed * Time.deltaTime));
         }
-
+           
         public void UpdateProgress(PlayerProgress progress) => 
             progress.worldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(),transform.position.AsVectorData());
 
@@ -55,7 +55,7 @@ namespace Scripts.Hero
         private void Warp(Vector3Data to)
         {
             characterController.enabled = false;
-            transform.position = to.AsUnityVector();
+            transform.position = to.AsUnityVector().AddY(characterController.height);
             characterController.enabled = true;
         }
     }

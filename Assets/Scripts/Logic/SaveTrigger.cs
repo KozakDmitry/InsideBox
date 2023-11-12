@@ -19,8 +19,9 @@ namespace Scripts.Logic
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Saved");
             _saveLoadService.SaveProgress();
-
+            
             gameObject.SetActive(false);
         }
 
@@ -31,7 +32,7 @@ namespace Scripts.Logic
             {
                 return;
             }
-
+           
             Gizmos.color = new Color32(30, 200, 30, 130);
             Gizmos.DrawCube(transform.position + collider.center, collider.size);
         }
