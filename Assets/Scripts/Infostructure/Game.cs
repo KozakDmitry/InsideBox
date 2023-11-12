@@ -9,9 +9,9 @@ namespace Scripts.Infostructure
     {
         public GameStateMachine _stateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner, LoadingCertain certain)
+        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain curtain)
         {
-            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), certain, AllServices.Container);
+            _stateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), curtain, AllServices.Container);
         }
 
     }

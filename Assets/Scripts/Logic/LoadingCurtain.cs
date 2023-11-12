@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts.Logic
 {
-    public class LoadingCertain : MonoBehaviour
+    public class LoadingCurtain : MonoBehaviour
     {
         public CanvasGroup Curtain;
 

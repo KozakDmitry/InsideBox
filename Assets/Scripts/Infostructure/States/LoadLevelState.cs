@@ -11,25 +11,25 @@ namespace Infostructure.States
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly LoadingCertain _certain;
+        private readonly LoadingCurtain _curtain;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
 
 
         private const string InitialPointTag = "InitialPoint";
      
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCertain certain, IGameFactory gameFactory, IPersistentProgressService progressService)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _certain = certain;
+            _curtain = curtain;
             _gameFactory = gameFactory;
             _progressService = progressService;
         }
 
         public void Enter(string sceneName)
         {
-            _certain.Show();
+            _curtain.Show();
             _gameFactory.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
@@ -62,6 +62,6 @@ namespace Infostructure.States
 
 
         public void Exit() =>
-            _certain.Hide();
+            _curtain.Hide();
     }
 }

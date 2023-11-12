@@ -1,6 +1,7 @@
 using Infostructure.States;
 using Scripts.Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scripts.Infostructure
 {
@@ -8,10 +9,10 @@ namespace Scripts.Infostructure
     {
 
         private Game _game;
-        public LoadingCertain Certain;
+        public LoadingCurtain curtainPrefab;
         private void Awake()
         {
-            _game = new Game(this, Certain);
+            _game = new Game(this,Instantiate(curtainPrefab));
             _game._stateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
         }
