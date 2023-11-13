@@ -4,7 +4,7 @@ using Infostructure.Factory;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Enemy
+namespace Scripts.Enemy
 {
     public class AgentMoveToPlayer : MonoBehaviour
     {

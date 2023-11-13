@@ -2,7 +2,7 @@
 using Scripts.Logic;
 using UnityEngine;
 
-namespace CodeBase.Enemy
+namespace Scripts.Enemy
 {
   public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
   {

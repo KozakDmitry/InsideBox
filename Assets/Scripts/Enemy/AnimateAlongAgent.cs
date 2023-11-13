@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections;
-using CodeBase.Enemy;
+using Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Enemy
+namespace Scripts.Enemy
 {
-    [RequireComponent(NavMeshAgent)]
-    [RequireComponent(EnemyAnimator)]
-    
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyAnimator))]
     public class AnimateAlongAgent : MonoBehaviour
     {
         public NavMeshAgent Agent;
