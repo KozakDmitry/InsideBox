@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Infostructure.Services.PersistentProgress;
 using UnityEngine;
 
@@ -10,6 +11,11 @@ namespace Infostructure.Factory
         void CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
+
+
+        GameObject HeroGameObject { get; }
+        event Action HeroCreated;
+        
         void CleanUp();
     }
 }

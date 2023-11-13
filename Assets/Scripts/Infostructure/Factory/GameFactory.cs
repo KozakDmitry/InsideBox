@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Infostructure.AssetManagеment;
 using Infostructure.Services.PersistentProgress;
 using UnityEngine;
@@ -11,12 +12,20 @@ namespace Infostructure.Factory
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+
+        public GameObject HeroGameObject { get; set; }
+        public event Action HeroCreated;
+
         public GameFactory(IAssets assets)
         {
             _assets = assets;
         }
-        public GameObject CreateHero(GameObject initialPoint) =>
-            InstantiateRegistered(AssetPass.HeroPath, initialPoint.transform.position);
+        public GameObject CreateHero(GameObject initialPoint)
+        {
+            HeroGameObject =  InstantiateRegistered(AssetPass.HeroPath, initialPoint.transform.position);
+            HeroCreated?.Invoke();
+            return HeroGameObject;
+        }
 
         public void CreateHUD() =>
             InstantiateRegistered(AssetPass.HudPath);
@@ -42,6 +51,8 @@ namespace Infostructure.Factory
                 Register(progressReader);
             }
         }
+
+
 
         public void CleanUp()
         {
