@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Enemy
@@ -7,6 +8,10 @@ namespace Scripts.Enemy
     {
         public TriggerObserver TriggerObserver;
         public AgentMoveToPlayer Follow;
+
+        public float Cooldown;
+        private Coroutine _aggroCoroutine;
+        private bool _hasAggroTarget;
 
         private void Start()
         {
@@ -18,18 +23,40 @@ namespace Scripts.Enemy
 
         private void TriggerEnter(Collider obj)
         {
-            SwitchFollowOn();
+            if (!_hasAggroTarget)
+            {
+                _hasAggroTarget = true;
+                StopAggroCoroutine();
+                SwitchFollowOn();
+            }
+            
         }
 
+        private void StopAggroCoroutine()
+        {
+            if (_aggroCoroutine != null)
+            {
+                StopCoroutine(_aggroCoroutine);
+                _aggroCoroutine = null;
+            }
+        }
         private void TriggerExit(Collider obj)
         {
+            _aggroCoroutine = StartCoroutine(SwitchFollowOffAfherCooldown());
+        }
+
+        private IEnumerator SwitchFollowOffAfherCooldown()
+        {
+            yield return new WaitForSeconds(5.0f);
             SwitchFollowOff();
         }
 
-        private void SwitchFollowOn() => 
+
+
+        private void SwitchFollowOn() =>
             Follow.enabled = true;
 
-        private void SwitchFollowOff() => 
+        private void SwitchFollowOff() =>
             Follow.enabled = false;
     }
 }
