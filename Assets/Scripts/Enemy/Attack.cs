@@ -21,6 +21,7 @@ namespace Scripts.Enemy
         private bool _isAttacking;
         private int _layerMask;
         private Collider[] _hits = new Collider[1];
+        private bool _attackIsActive;
 
         private void Awake()
         {
@@ -51,6 +52,11 @@ namespace Scripts.Enemy
             }
         }
 
+        private void OnAttackEnd()
+        {
+            _attackCooldown = AttackCooldown;
+            _isAttacking = false;
+        }
         private bool Hit(out Collider hit)
         {
             int hitCount = Physics.OverlapSphereNonAlloc(StartPoint(), Cleavage, _hits, _layerMask);
@@ -58,18 +64,15 @@ namespace Scripts.Enemy
             return hitCount > 0;
         }
 
-        private Vector3 StartPoint() => 
-            new Vector3(transform.position.x,transform.position.y + 0.5f,transform.position.z) + transform.forward* EffectiveRange;
+        private Vector3 StartPoint() =>
+            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * EffectiveRange;
+        public void EnableAttack() =>
+            _attackIsActive = false;
 
-        private void OnAttackEnd()
-        {
-            _attackCooldown = AttackCooldown;
-            _isAttacking = false;
-        }
-      
-
+        public void DisableAttack() =>
+            _attackIsActive = true;
         private bool CanAttack() =>
-            CooldownIsUp() && _isAttacking;
+            CooldownIsUp() && _isAttacking && _attackIsActive;
 
 
         private bool CooldownIsUp() =>
@@ -93,5 +96,6 @@ namespace Scripts.Enemy
             _heroTransform = _factory.HeroGameObject.transform;
 
 
+  
     }
 }
