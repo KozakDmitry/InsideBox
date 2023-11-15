@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Infostructure.Factory;
+using Scripts.Hero;
 using UnityEngine;
 
 namespace Scripts.Enemy
@@ -13,6 +14,7 @@ namespace Scripts.Enemy
         public float AttackCooldown = 3f;
         public float Cleavage = 5f;
         public float EffectiveRange = 0.5f;
+        public float Damage = 15f;
 
 
         private IGameFactory _factory;
@@ -48,7 +50,7 @@ namespace Scripts.Enemy
         {
             if (Hit(out Collider hit))
             {
-
+                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
             }
         }
 
