@@ -8,7 +8,7 @@ namespace Infostructure.Factory
     public interface IGameFactory : IService
     {
         GameObject CreateHero(GameObject at);
-        void CreateHUD();
+        GameObject CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
 

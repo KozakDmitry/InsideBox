@@ -27,7 +27,7 @@ namespace Infostructure.Factory
             return HeroGameObject;
         }
 
-        public void CreateHUD() =>
+        public GameObject CreateHUD() =>
             InstantiateRegistered(AssetPass.HudPath);
 
 

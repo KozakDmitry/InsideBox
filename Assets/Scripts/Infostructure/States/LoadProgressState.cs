@@ -11,7 +11,8 @@ namespace Infostructure.States
         private readonly IPersistentProgressService _progressService;
         private ISaveLoadService _saveLoadService;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService,
+            ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = progressService;
@@ -21,22 +22,32 @@ namespace Infostructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            _gameStateMachine.Enter<LoadLevelState,string>(_progressService.Progress.worldData.PositionOnLevel.Level); 
+            _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.worldData.PositionOnLevel.Level);
         }
 
         private void LoadProgressOrInitNew() =>
-            _progressService.Progress = 
-                _saveLoadService.LoadProgress() 
+            _progressService.Progress =
+                _saveLoadService.LoadProgress()
                 ?? NewProgress();
 
-        private PlayerProgress NewProgress() => 
-            new(initialLevel: "Main");
+
+
+       
+        private PlayerProgress NewProgress()
+        {
+            
+            var progress = new PlayerProgress(initialLevel: "Main");
+            progress.HeroState.MaxHp = 50;
+            progress.HeroState.ResetHp();
+
+            return progress;
+        }
 
         public void Exit()
         {
-            
-        }
 
-     
-    }
+        }
+  
+
+}
 }

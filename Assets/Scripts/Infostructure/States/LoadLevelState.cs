@@ -1,6 +1,8 @@
-﻿using Infostructure.Factory;
+﻿using Assets.Scripts.UI;
+using Infostructure.Factory;
 using Infostructure.Services.PersistentProgress;
 using Scripts.CameraLogic;
+using Scripts.Hero;
 using Scripts.Infostructure;
 using Scripts.Logic;
 using UnityEngine;
@@ -53,8 +55,13 @@ namespace Infostructure.States
         private void InitGameWorld()
         {
             GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
-            _gameFactory.CreateHUD();
+            InitHUD(hero);
             BindCamera(hero);
+        }
+        private void InitHUD(GameObject hero)
+        {
+            GameObject HUD = _gameFactory.CreateHUD();
+            HUD.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
         }
 
         private void BindCamera(GameObject hero) =>
