@@ -3,6 +3,7 @@ using System.Collections;
 using CodeBase.Hero;
 using Infostructure.Services.PersistentProgress;
 using Scripts.Data;
+using Scripts.Logic;
 using Scripts.Services.Input;
 using UnityEngine;
 
@@ -16,7 +17,6 @@ namespace Scripts.Hero
         private IInputService _input;
 
         private static int _layerMask;
-        private float radius;
         private Collider[] _hits = new Collider[3];
         private Stats _stats;
 
@@ -41,13 +41,16 @@ namespace Scripts.Hero
 
         public void OnAttack()
         {
-
+            for (int i = 0; i < Hit(); i++)
+            {
+                _hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
+            }
         }
         public void LoadProgress(PlayerProgress progress) =>
             _stats = progress.HerosStats;
 
         private int Hit() 
-            => Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, radius, _hits, _layerMask);
+            => Physics.OverlapSphereNonAlloc(StartPoint() + transform.forward, _stats.Radius, _hits, _layerMask);
 
         private Vector3 StartPoint() => 
             new(transform.position.x, CharacterController.center.y / 2, transform.position.z);

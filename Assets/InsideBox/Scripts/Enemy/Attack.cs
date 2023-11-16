@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Infostructure.Factory;
 using Scripts.Hero;
+using Scripts.Logic;
 using UnityEngine;
 
 namespace Scripts.Enemy
@@ -50,7 +51,7 @@ namespace Scripts.Enemy
         {
             if (Hit(out Collider hit))
             {
-                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
+                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
         }
 
@@ -87,7 +88,7 @@ namespace Scripts.Enemy
         {
             transform.LookAt(_heroTransform);
             animator.PlayAttack();
-
+            OnAttack();
             _isAttacking = true;
 
         }
