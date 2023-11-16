@@ -551,10 +551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6506207781caa44a23724f5f3798ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 3525177863605392456}
   AttackCooldown: 3
   Cleavage: 5
-  EffectiveRange: 0.5
+  EffectiveRange: 4
+  Damage: 15
 --- !u!114 &8967542131597977089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1038,7 +1039,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5387820992723432321
 MonoBehaviour:
@@ -1096,7 +1097,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4325163645399474646
 MonoBehaviour:
