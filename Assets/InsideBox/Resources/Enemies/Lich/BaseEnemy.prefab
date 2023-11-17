@@ -558,8 +558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3525177863605392456}
   AttackCooldown: 3
-  Cleavage: 4
-  EffectiveRange: 4
+  Cleavage: 2
+  EffectiveRange: 1
   Damage: 15
 --- !u!114 &8967542131597977089
 MonoBehaviour:
@@ -1342,7 +1342,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 2
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4325163645399474646
 MonoBehaviour:

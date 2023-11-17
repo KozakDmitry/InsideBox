@@ -13,9 +13,9 @@ namespace Scripts.Enemy
     {
         public EnemyAnimator animator;
         public float AttackCooldown = 3f;
-        public float Cleavage = 5f;
-        public float EffectiveRange = 0.5f;
-        public float Damage = 15f;
+        public float Cleavage = 1f;
+        public float EffectiveRange = 1f;
+        public float Damage = 15;
 
 
         private IGameFactory _factory;
@@ -35,26 +35,26 @@ namespace Scripts.Enemy
 
         private void Update()
         {
-
+            UpdateAttackCooldown();
             if (CanAttack())
             {
                 StartAttack();
                 
             }
-            else
-            {
-                UpdateAttackCooldown();
-            }
+     
         }
 
 
 
         private void OnAttack()
         {
+            
             if (Hit(out Collider hit))
             {
+               
                 PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1);
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
+               
             }
         }
 
@@ -71,14 +71,15 @@ namespace Scripts.Enemy
         }
 
         private Vector3 StartPoint() =>
-            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * EffectiveRange;
+            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) +
+            transform.forward * EffectiveRange;
         public void EnableAttack() =>
-            _attackIsActive = false;
+            _attackIsActive = true;
 
         public void DisableAttack() =>
-            _attackIsActive = true;
+            _attackIsActive = false;
         private bool CanAttack() =>
-            CooldownIsUp() && !_isAttacking && !_attackIsActive;
+            CooldownIsUp() && !_isAttacking && _attackIsActive;
 
 
         private bool CooldownIsUp() =>
@@ -91,9 +92,8 @@ namespace Scripts.Enemy
         {
             transform.LookAt(_heroTransform);
             animator.PlayAttack();
-            OnAttack();
             _isAttacking = true;
-
+            OnAttack();
         }
 
      

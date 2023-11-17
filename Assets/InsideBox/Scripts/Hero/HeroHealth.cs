@@ -23,9 +23,10 @@ namespace Scripts.Hero
             {
                 if (value!= _state.CurrentHP)
                 {
+
                     _state.CurrentHP = value;
                     HealthChanged?.Invoke();
-                    
+
                 }
             }
         }
