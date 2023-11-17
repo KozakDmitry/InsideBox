@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.UI;
+﻿using Scripts.UI;
 using Infostructure.Factory;
 using Infostructure.Services.PersistentProgress;
 using Scripts.CameraLogic;

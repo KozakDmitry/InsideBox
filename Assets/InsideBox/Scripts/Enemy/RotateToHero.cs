@@ -43,6 +43,13 @@ namespace Scripts.Enemy
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_gameFactory != null)
+            {
+                _gameFactory.HeroCreated -= InitializeHeroTransform;
+            }
+        }
         private void RotateTowardsHero()
         {
             UpdatePositionToLookAt();
@@ -52,7 +59,7 @@ namespace Scripts.Enemy
 
         private void UpdatePositionToLookAt()
         {
-            Vector3 positionDiff = _heroTransform.position = transform.position;
+            Vector3 positionDiff = _heroTransform.position - transform.position;
             _positionToLook = new Vector3(positionDiff.x, transform.position.y, positionDiff.z);
         }
 

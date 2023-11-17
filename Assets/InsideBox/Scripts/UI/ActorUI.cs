@@ -1,27 +1,34 @@
 ﻿using System;
-using Scripts.Hero;
+using Scripts.Logic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+namespace Scripts.UI
 {
     public class ActorUI : MonoBehaviour
     {
         public HpBar Hpbar;
 
-        private HeroHealth _heroHealth;
+        private IHealth _health;
+
+        private void Start()
+        {
+            IHealth health = GetComponent<IHealth>();
+
+            if (health != null)
+            {
+                Construct(health);
+            }
+        }
         private void OnDestroy() =>
-            _heroHealth.HealthChanged -= UpdateHpBar;
-
-        public void Construct(HeroHealth health)
+            _health.HealthChanged -= UpdateHpBar;
+        public void Construct(IHealth health)
         {
-            _heroHealth = health;
-            _heroHealth.HealthChanged += UpdateHpBar;
-        }
-        private void UpdateHpBar()
-        {
-            Hpbar.SetValue(_heroHealth.Current, _heroHealth.Max);
+            _health = health;
+            _health.HealthChanged += UpdateHpBar;
         }
 
-     
+        private void UpdateHpBar() =>
+            Hpbar.SetValue(_health.Current, _health.Max);
     }
 }

@@ -35,9 +35,11 @@ namespace Scripts.Enemy
 
         private void Update()
         {
+
             if (CanAttack())
             {
                 StartAttack();
+                
             }
             else
             {
@@ -51,6 +53,7 @@ namespace Scripts.Enemy
         {
             if (Hit(out Collider hit))
             {
+                PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1);
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
         }
@@ -75,14 +78,14 @@ namespace Scripts.Enemy
         public void DisableAttack() =>
             _attackIsActive = true;
         private bool CanAttack() =>
-            CooldownIsUp() && _isAttacking && _attackIsActive;
+            CooldownIsUp() && !_isAttacking && !_attackIsActive;
 
 
         private bool CooldownIsUp() =>
-            AttackCooldown <= 0;
+            _attackCooldown <= 0;
 
-        private void UpdateAttackCooldown() => 
-            AttackCooldown -= Time.deltaTime;
+        private void UpdateAttackCooldown() =>
+            _attackCooldown -= Time.deltaTime;
 
         private void StartAttack()
         {

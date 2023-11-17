@@ -558,7 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3525177863605392456}
   AttackCooldown: 3
-  Cleavage: 5
+  Cleavage: 4
   EffectiveRange: 4
   Damage: 15
 --- !u!114 &8967542131597977089
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7d504517c5476c14383e765e9d58ac62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 389db01503801084cb408d9b539a43ca, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

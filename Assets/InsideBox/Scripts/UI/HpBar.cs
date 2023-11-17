@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+namespace Scripts.UI
 {
     public class HpBar : MonoBehaviour
     {

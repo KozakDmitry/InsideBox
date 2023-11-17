@@ -15,8 +15,10 @@ namespace Scripts.Enemy
         private const float MinimalVelocity = 0.1f;
         private void Update()
         {
-            if(ShouldMove())
-            Animator.Move(Agent.velocity.magnitude);
+            if (ShouldMove())
+            {
+                Animator.Move(Agent.velocity.magnitude);
+            }
             else
             {
                 Animator.StopMoving();

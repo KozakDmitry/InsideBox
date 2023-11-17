@@ -27,6 +27,7 @@ namespace Scripts.Hero
 
         private void HealthChanged()
         {
+            Debug.Log("WAT");
             if (!_isDead && Health.Current <= 0)
             {
                 Die();
@@ -35,11 +36,12 @@ namespace Scripts.Hero
 
         private void Die()
         {
+            Debug.Log("DIE");
             _isDead = true;
             Move.enabled = false;
             Attack.enabled = false;
             Animator.PlayDeath();
-
+   
             Instantiate(deathFX, transform.position, Quaternion.identity);
         }
     }

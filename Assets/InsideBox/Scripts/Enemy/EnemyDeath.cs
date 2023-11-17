@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Scripts.Logic;
 using UnityEngine;
 
 namespace Scripts.Enemy
