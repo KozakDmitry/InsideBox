@@ -19,7 +19,8 @@ namespace Infostructure.States
 
 
         private const string InitialPointTag = "InitialPoint";
-     
+        private const string EnemySpawnerTag = "EnemySpawner";
+
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
@@ -54,10 +55,21 @@ namespace Infostructure.States
 
         private void InitGameWorld()
         {
+            InitSpawners();
             GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
             InitHUD(hero);
             BindCamera(hero);
         }
+
+        private void InitSpawners()
+        {
+            foreach (GameObject spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag))
+            {
+                var spawner = spawnerObject.GetComponent<EnemySpawner>();
+                _gameFactory.Register(spawner);
+            }
+        }
+
         private void InitHUD(GameObject hero)
         {
             GameObject HUD = _gameFactory.CreateHUD();

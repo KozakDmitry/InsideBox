@@ -59,7 +59,7 @@ namespace Infostructure.Factory
             ProgressReaders.Clear();
             ProgressWriters.Clear();
         }
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
             if (progressReader is ISavedProgress progressWriter)
             {

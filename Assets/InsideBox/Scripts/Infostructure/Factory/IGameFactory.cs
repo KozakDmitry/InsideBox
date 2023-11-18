@@ -11,7 +11,7 @@ namespace Infostructure.Factory
         GameObject CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-
+        public void Register(ISavedProgressReader progressReader);
 
         GameObject HeroGameObject { get; }
         event Action HeroCreated;
