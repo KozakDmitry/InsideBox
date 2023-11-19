@@ -1,9 +1,11 @@
 ﻿using Infostructure.AssetManagеment;
 using Infostructure.Factory;
+using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
 using Infostructure.Services.SaveLoad;
 using Scripts.Infostructure;
 using Scripts.Services.Input;
+using Scripts.StaticData;
 using UnityEngine;
 
 namespace Infostructure.States
@@ -39,7 +41,15 @@ namespace Infostructure.States
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
-            
+           
+            RegisterStaticData();
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.LoadMonsters();
+            _services.RegisterSingle(staticData);
         }
 
         private static IInputService InputService()
