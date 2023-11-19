@@ -22,5 +22,6 @@ namespace Scripts.StaticData
 
         public GameObject Prefab;
 
+        public float MoveSpeed { get; set; }
     }
 }

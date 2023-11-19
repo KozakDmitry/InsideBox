@@ -18,7 +18,6 @@ namespace Scripts.Enemy
         public float Damage = 15;
 
 
-        private IGameFactory _factory;
         private Transform _heroTransform;
         private float _attackCooldown;
         private bool _isAttacking;
@@ -29,8 +28,6 @@ namespace Scripts.Enemy
         private void Awake()
         {
             _layerMask = 1 << LayerMask.NameToLayer("Player");
-            _factory = AllServices.Container.Single<IGameFactory>();
-            _factory.HeroCreated += OnHeroCreated;
         }
 
         private void Update()
@@ -41,9 +38,10 @@ namespace Scripts.Enemy
                 StartAttack();
                 
             }
-     
         }
 
+        public void Construct(Transform heroTransform) =>
+            _heroTransform = heroTransform;
 
 
         private void OnAttack()
@@ -96,12 +94,7 @@ namespace Scripts.Enemy
             OnAttack();
         }
 
-     
+        
 
-        private void OnHeroCreated() =>
-            _heroTransform = _factory.HeroGameObject.transform;
-
-
-  
     }
 }

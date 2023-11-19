@@ -1,29 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infostructure.AssetManagеment;
+using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
+using Scripts.Enemy;
+using Scripts.Logic;
+using Scripts.StaticData;
+using Scripts.UI;
 using UnityEngine;
+using UnityEngine.AI;
+using Object = UnityEngine.Object;
 
 namespace Infostructure.Factory
 {
     public class GameFactory : IGameFactory
     {
         private readonly IAssets _assets;
+        private readonly IStaticDataService _staticData;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameObject HeroGameObject { get; set; }
-        public event Action HeroCreated;
-
-        public GameFactory(IAssets assets)
+        private GameObject HeroGameObject { get; set; }
+        public GameFactory(IAssets assets, IStaticDataService staticData)
         {
             _assets = assets;
+            _staticData = staticData;
         }
         public GameObject CreateHero(GameObject initialPoint)
         {
-            HeroGameObject =  InstantiateRegistered(AssetPass.HeroPath, initialPoint.transform.position);
-            HeroCreated?.Invoke();
+            HeroGameObject = InstantiateRegistered(AssetPass.HeroPath, initialPoint.transform.position);
             return HeroGameObject;
         }
 
@@ -59,6 +65,30 @@ namespace Infostructure.Factory
             ProgressReaders.Clear();
             ProgressWriters.Clear();
         }
+
+        public GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent)
+        {
+            MonsterStaticData monsterData = _staticData.ForMonster(monsterTypeID);
+            GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity);
+            var health = monster.GetComponent<IHealth>();
+            health.Current = monsterData.Hp;
+            health.Max = monsterData.Hp;
+
+            monster.GetComponent<ActorUI>().Construct(health);
+            monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
+            monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
+
+            var attack = monster.GetComponent<Attack>();
+            attack.Construct(HeroGameObject.transform);
+            attack.Damage = monsterData.Damage;
+            attack.Damage = monsterData.Cleavage;
+            attack.EffectiveRange = monsterData.EffectiveDistance;
+
+            monster.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
+
+            return monster;
+        }
+
         public void Register(ISavedProgressReader progressReader)
         {
             if (progressReader is ISavedProgress progressWriter)

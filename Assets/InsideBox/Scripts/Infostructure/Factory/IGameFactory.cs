@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infostructure.Services.PersistentProgress;
+using Scripts.StaticData;
 using UnityEngine;
 
 namespace Infostructure.Factory
@@ -13,9 +14,7 @@ namespace Infostructure.Factory
         List<ISavedProgress> ProgressWriters { get; }
         public void Register(ISavedProgressReader progressReader);
 
-        GameObject HeroGameObject { get; }
-        event Action HeroCreated;
-        
         void CleanUp();
+        GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
     }
 }
