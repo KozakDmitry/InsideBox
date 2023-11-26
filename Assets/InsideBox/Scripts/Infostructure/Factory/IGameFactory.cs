@@ -16,5 +16,6 @@ namespace Infostructure.Factory
 
         void CleanUp();
         GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
+        GameObject CreateLoot();
     }
 }

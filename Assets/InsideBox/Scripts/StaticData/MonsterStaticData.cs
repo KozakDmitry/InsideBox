@@ -13,6 +13,9 @@ namespace Scripts.StaticData
         [Range(1,30)]
         public float Damage;
 
+        public int minLoot;
+        public int maxLoot;
+
         [Range(0.5f, 1f)]
         public float EffectiveDistance = 0.666f;
 

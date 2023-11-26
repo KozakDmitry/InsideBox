@@ -5,6 +5,7 @@ using Infostructure.Services.PersistentProgress;
 using Infostructure.Services.SaveLoad;
 using Scripts.Infostructure;
 using Scripts.Services.Input;
+using Scripts.Services.Randomizer;
 using Scripts.StaticData;
 using UnityEngine;
 
@@ -37,6 +38,8 @@ namespace Infostructure.States
         public void RegisterServices()
         {
             RegisterStaticData();
+
+            _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());

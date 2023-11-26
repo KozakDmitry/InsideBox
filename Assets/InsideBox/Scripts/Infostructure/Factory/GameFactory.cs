@@ -5,6 +5,7 @@ using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
 using Scripts.Enemy;
 using Scripts.Logic;
+using Scripts.Services.Randomizer;
 using Scripts.StaticData;
 using Scripts.UI;
 using UnityEngine;
@@ -65,7 +66,6 @@ namespace Infostructure.Factory
             ProgressReaders.Clear();
             ProgressWriters.Clear();
         }
-
         public GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(monsterTypeID);
@@ -78,6 +78,9 @@ namespace Infostructure.Factory
             monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
+            var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Construct(this, AllServices.Container.Single<IRandomService>());
+            lootSpawner.SetLoot(monsterData.minLoot,monsterData.maxLoot);
             var attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
             attack.Damage = monsterData.Damage;
@@ -88,6 +91,10 @@ namespace Infostructure.Factory
 
             return monster;
         }
+
+        public GameObject CreateLoot() => 
+            InstantiateRegistered(AssetPass.Loot);
+
 
         public void Register(ISavedProgressReader progressReader)
         {
