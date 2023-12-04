@@ -14,5 +14,6 @@ namespace Scripts.Data
         }
 
 
+        public LootData LootData;
     }
 }

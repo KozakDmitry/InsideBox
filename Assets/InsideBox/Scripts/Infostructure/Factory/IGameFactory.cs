@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infostructure.Services.PersistentProgress;
+using Scripts.Enemy;
 using Scripts.StaticData;
 using UnityEngine;
 
@@ -16,6 +17,6 @@ namespace Infostructure.Factory
 
         void CleanUp();
         GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
-        GameObject CreateLoot();
+        LootPiece CreateLoot();
     }
 }

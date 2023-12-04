@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Infostructure.AssetManagеment;
 using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
+using Scripts.Data;
 using Scripts.Enemy;
 using Scripts.Logic;
 using Scripts.Services.Randomizer;
@@ -18,15 +19,17 @@ namespace Infostructure.Factory
     {
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
+        private readonly IPersistentProgressService _progressService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
         private GameObject HeroGameObject { get; set; }
-        public GameFactory(IAssets assets, IStaticDataService staticData)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService progressService)
         {
             _assets = assets;
             _staticData = staticData;
+            _progressService = progressService;
         }
         public GameObject CreateHero(GameObject initialPoint)
         {
@@ -92,8 +95,12 @@ namespace Infostructure.Factory
             return monster;
         }
 
-        public GameObject CreateLoot() => 
-            InstantiateRegistered(AssetPass.Loot);
+        public LootPiece CreateLoot()
+        {
+            var lootPiece = InstantiateRegistered(AssetPass.Loot).GetComponent<LootPiece>();
+            lootPiece.Construct(_progressService.Progress.worldData);
+            return lootPiece;
+        }
 
 
         public void Register(ISavedProgressReader progressReader)
