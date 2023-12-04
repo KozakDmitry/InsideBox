@@ -9,7 +9,7 @@ namespace Scripts.Logic
     {
         private ISaveLoadService _saveLoadService;
 
-        public BoxCollider collider;
+        public BoxCollider boxCollider;
 
         private void Awake()
         {
@@ -28,13 +28,13 @@ namespace Scripts.Logic
 
         private void OnDrawGizmos()
         {
-            if (!collider)
+            if (!boxCollider)
             {
                 return;
             }
            
             Gizmos.color = new Color32(30, 200, 30, 130);
-            Gizmos.DrawCube(transform.position + collider.center, collider.size);
+            Gizmos.DrawCube(transform.position + boxCollider.center, boxCollider.size);
         }
     }
 }

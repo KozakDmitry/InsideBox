@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1091d843dbcd01c48b9cb8524682b2a0, type: 3}
   m_Name: MonsterData
   m_EditorClassIdentifier: 
-  Hp: 0
-  Damage: 0
-  EffectiveDistance: 0
-  Cleavage: 0
+  MonsterTypeId: 0
+  Hp: 30
+  Damage: 4.4
+  minLoot: 1
+  maxLoot: 7
+  EffectiveDistance: 0.68
+  Cleavage: 0.74
+  Prefab: {fileID: 5777979593217477780, guid: 7fb7d9902fdf6554c8c3d59f75912cf3, type: 3}
