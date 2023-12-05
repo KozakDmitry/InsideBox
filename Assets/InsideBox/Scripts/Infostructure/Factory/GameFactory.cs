@@ -6,6 +6,7 @@ using Infostructure.Services.PersistentProgress;
 using Scripts.Data;
 using Scripts.Enemy;
 using Scripts.Logic;
+using Scripts.Logic.EnemySpawners;
 using Scripts.Services.Randomizer;
 using Scripts.StaticData;
 using Scripts.UI;
@@ -109,9 +110,9 @@ namespace Infostructure.Factory
         public void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId)
         {
             var spawner = InstantiateRegistered(AssetPass.Spawner)
-                .GetComponent<EnemySpawner>();
-
-            spawner._id = spawnerID;
+                .GetComponent<SpawnPoint>();
+            spawner.Construct(this);
+            spawner.id = spawnerID;
             spawner.MonsterTypeID = spawnerMonsterTypeId;
         }
 

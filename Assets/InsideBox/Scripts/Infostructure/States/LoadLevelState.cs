@@ -24,7 +24,7 @@ namespace Infostructure.States
 
 
         private const string InitialPointTag = "InitialPoint";
-        private const string EnemySpawnerTag = "EnemySpawner";
+        private const string EnemySpawnerTag = "SpawnPoint";
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
         {
@@ -73,7 +73,7 @@ namespace Infostructure.States
             LevelStaticData levelStaticData =  _staticData.ForLevel(sceneKey);
             foreach (EnemySpawnerData spawner in levelStaticData.EnemySpawners)
             {
-                _gameFactory.CreateSpawner(spawner.position, spawner.id.ToString(), spawner.monsterTypeId);
+                _gameFactory.CreateSpawner(spawner.position, spawner.id, spawner.monsterTypeId);
             }
         }
 
