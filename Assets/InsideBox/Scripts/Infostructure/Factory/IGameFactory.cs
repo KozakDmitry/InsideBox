@@ -13,7 +13,7 @@ namespace Infostructure.Factory
         GameObject CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        public void Register(ISavedProgressReader progressReader);
+        void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId);
 
         void CleanUp();
         GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent);

@@ -37,8 +37,13 @@ namespace Infostructure.Factory
             return HeroGameObject;
         }
 
-        public GameObject CreateHUD() =>
-            InstantiateRegistered(AssetPass.HudPath);
+        public GameObject CreateHUD()
+        {
+            GameObject hud = InstantiateRegistered(AssetPass.HudPath);
+            hud.GetComponentInChildren<LootCounter>()
+                .Construct(_progressService.Progress.worldData);
+            return hud;
+        }
 
 
         private GameObject InstantiateRegistered(string path, Vector3 position)
@@ -61,7 +66,6 @@ namespace Infostructure.Factory
                 Register(progressReader);
             }
         }
-
 
 
         public void CleanUp()
@@ -100,6 +104,15 @@ namespace Infostructure.Factory
             var lootPiece = InstantiateRegistered(AssetPass.Loot).GetComponent<LootPiece>();
             lootPiece.Construct(_progressService.Progress.worldData);
             return lootPiece;
+        }
+
+        public void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId)
+        {
+            var spawner = InstantiateRegistered(AssetPass.Spawner)
+                .GetComponent<EnemySpawner>();
+
+            spawner._id = spawnerID;
+            spawner.MonsterTypeID = spawnerMonsterTypeId;
         }
 
 

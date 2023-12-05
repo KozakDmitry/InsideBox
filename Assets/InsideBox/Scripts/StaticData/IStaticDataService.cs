@@ -1,10 +1,11 @@
 ﻿using Scripts.StaticData;
 
-namespace Infostructure.Services
+namespace Scripts.StaticData
 {
     public interface IStaticDataService : IService
     {
-        void LoadMonsters();
+        void Load();
         MonsterStaticData ForMonster(MonsterTypeId typeId);
+        LevelStaticData ForLevel(string sceneKey);
     }
 }

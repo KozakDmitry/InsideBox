@@ -12,7 +12,7 @@ namespace Scripts.Logic
     public class EnemySpawner : MonoBehaviour, ISavedProgress
     {
         public MonsterTypeId MonsterTypeID;
-        private string _id;
+        public string _id;
 
 
         private bool _isSlain;
