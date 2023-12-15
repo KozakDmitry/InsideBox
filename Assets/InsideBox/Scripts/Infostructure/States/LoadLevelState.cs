@@ -1,12 +1,11 @@
-﻿using Scripts.UI;
-using Infostructure.Factory;
-using Infostructure.Services;
+﻿using Infostructure.Factory;
 using Infostructure.Services.PersistentProgress;
 using Scripts.CameraLogic;
 using Scripts.Hero;
 using Scripts.Infostructure;
 using Scripts.Logic;
 using Scripts.StaticData;
+using Scripts.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

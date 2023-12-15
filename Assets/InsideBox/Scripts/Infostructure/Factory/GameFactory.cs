@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Infostructure.AssetManagеment;
-using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
-using Scripts.Data;
 using Scripts.Enemy;
 using Scripts.Logic;
 using Scripts.Logic.EnemySpawners;
 using Scripts.Services.Randomizer;
 using Scripts.StaticData;
-using Scripts.UI;
+using Scripts.UI.Elements;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;

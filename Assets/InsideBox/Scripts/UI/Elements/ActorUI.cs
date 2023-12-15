@@ -3,7 +3,7 @@ using Scripts.Logic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Scripts.UI
+namespace Scripts.UI.Elements
 {
     public class ActorUI : MonoBehaviour
     {
