@@ -6,6 +6,8 @@ using Scripts.Infostructure;
 using Scripts.Logic;
 using Scripts.StaticData;
 using Scripts.UI.Elements;
+using Scripts.UI.Services.Factory;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,12 +22,11 @@ namespace Infostructure.States
         
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
-
-
+        private readonly IUIFactory _UIFactory;
         private const string InitialPointTag = "InitialPoint";
         private const string EnemySpawnerTag = "SpawnPoint";
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData, IUIFactory uIFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -33,6 +34,7 @@ namespace Infostructure.States
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _UIFactory = uIFactory;
         }
 
         public void Enter(string sceneName)
@@ -45,9 +47,15 @@ namespace Infostructure.States
 
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
             InformProgressReader();
             _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InitUIRoot()
+        {
+            _UIFactory.CreateUIRoot();
         }
 
         private void InformProgressReader()

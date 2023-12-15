@@ -1,4 +1,5 @@
-﻿using Scripts.UI.Services.Windows;
+﻿using Scripts.StaticData.Windows;
+using Scripts.UI.Services.Windows;
 
 
 namespace Scripts.StaticData

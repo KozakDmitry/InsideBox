@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Infostructure.Services.PersistentProgress;
+using Scripts.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +9,42 @@ namespace Scripts.UI.Windows
     {
         public Button CloseButton;
 
-        private void Awake()
+        protected IPersistentProgressService _progressService;
+        protected PlayerProgress Progress =>_progressService.Progress;
+
+        public void Construct(IPersistentProgressService progressService)
         {
-            OnAwake();
+            _progressService = progressService;
         }
 
-        protected virtual void OnAwake()
+
+        private void Awake() =>
+            OnAwake();
+
+        public void Start()
         {
-            CloseButton.onClick.AddListener(()  => Destroy(gameObject));
+            Initialize();
+            SubscribeUpdates();
+        }
+        protected virtual void OnAwake() => 
+            CloseButton.onClick.AddListener(() => Destroy(gameObject));
+
+        private void OnDestroy() =>
+            CleanUp();
+
+        public virtual void Initialize()
+        {
+            
+        }
+
+        public virtual void SubscribeUpdates()
+        {
+
+        }
+
+        public virtual void CleanUp()
+        {
+
         }
     }
 }

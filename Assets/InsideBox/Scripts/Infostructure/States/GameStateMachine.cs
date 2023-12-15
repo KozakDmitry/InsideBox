@@ -6,6 +6,7 @@ using Scripts.Infostructure;
 using Infostructure.Services.PersistentProgress;
 using Scripts.Logic;
 using Scripts.StaticData;
+using Scripts.UI.Services.Factory;
 
 namespace Infostructure.States
 {
@@ -19,9 +20,18 @@ namespace Infostructure.States
         {
             _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader,services),
-                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgressService>(), services.Single<ISaveLoadService>()),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain, services.Single<IGameFactory>(), services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>()),
+                [typeof(BootstrapState)] = new BootstrapState(this, 
+                sceneLoader,
+                services),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, 
+                services.Single<IPersistentProgressService>(), 
+                services.Single<ISaveLoadService>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, 
+                sceneLoader, 
+                curtain, 
+                services.Single<IGameFactory>(), 
+                services.Single<IPersistentProgressService>(), 
+                services.Single<IStaticDataService>(), services.Single<IUIFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this)
 
 
