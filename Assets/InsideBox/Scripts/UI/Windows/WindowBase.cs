@@ -21,7 +21,7 @@ namespace Scripts.UI.Windows
         private void Awake() =>
             OnAwake();
 
-        public void Start()
+        private void Start()
         {
             Initialize();
             SubscribeUpdates();
@@ -32,17 +32,17 @@ namespace Scripts.UI.Windows
         private void OnDestroy() =>
             CleanUp();
 
-        public virtual void Initialize()
+        protected virtual void Initialize()
         {
             
         }
 
-        public virtual void SubscribeUpdates()
+        protected virtual void SubscribeUpdates()
         {
 
         }
 
-        public virtual void CleanUp()
+        protected virtual void CleanUp()
         {
 
         }
