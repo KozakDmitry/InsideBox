@@ -4,6 +4,7 @@ using Infostructure.Services;
 using Infostructure.Services.PersistentProgress;
 using Infostructure.Services.SaveLoad;
 using Scripts.Infostructure;
+using Scripts.Infostructure.Services.Ads;
 using Scripts.Services.Input;
 using Scripts.Services.Randomizer;
 using Scripts.StaticData;
@@ -40,15 +41,17 @@ namespace Infostructure.States
         public void RegisterServices()
         {
             RegisterStaticData();
-
+            RegisterAdsService();
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
+
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IUIFactory>(new UIFactory(
                  _services.Single<IAssets>(),
                  _services.Single<IStaticDataService>(),
-                 _services.Single<IPersistentProgressService>()
+                 _services.Single<IPersistentProgressService>(),
+                 _services.Single<IAdsService>()
                  ));
 
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
@@ -65,6 +68,13 @@ namespace Infostructure.States
                 _services.Single<IGameFactory>()));
 
 
+        }
+
+        private void RegisterAdsService()
+        {
+            IAdsService adsService = new AdsService();
+            adsService.Initialize();
+            _services.RegisterSingle(adsService);
         }
 
         private void RegisterStaticData()
