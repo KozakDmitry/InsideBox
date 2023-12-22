@@ -42,6 +42,7 @@ namespace Infostructure.States
         {
             RegisterStaticData();
             RegisterAdsService();
+            _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());

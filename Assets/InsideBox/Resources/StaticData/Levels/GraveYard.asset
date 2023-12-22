@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: GraveYard
   m_EditorClassIdentifier: 
   LevelKey: Main
-  EnemySpawners: []
+  EnemySpawners:
+  - id: Main_9fba7869-c0ea-4fa5-9984-38d2ca9fb00c
+    monsterTypeId: 0
+    position: {x: 1.34, y: -0.03, z: 4.39}
+  InitialHeroPosition: {x: 0.253, y: 1.645, z: -0.6}

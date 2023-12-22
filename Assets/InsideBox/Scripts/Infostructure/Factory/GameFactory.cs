@@ -32,9 +32,9 @@ namespace Infostructure.Factory
             _progressService = progressService;
             _windowService = windowService;
         }
-        public GameObject CreateHero(GameObject initialPoint)
+        public GameObject CreateHero(Vector3 initialPoint)
         {
-            HeroGameObject = InstantiateRegistered(AssetPass.HeroPath, initialPoint.transform.position);
+            HeroGameObject = InstantiateRegistered(AssetPass.HeroPath, initialPoint);
             return HeroGameObject;
         }
 

@@ -68,16 +68,23 @@ namespace Infostructure.States
 
         private void InitGameWorld()
         {
-            InitSpawners();
-            GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
+            LevelStaticData levelStaticData = GetLevelStaticData();
+
+            InitSpawners(levelStaticData);
+            GameObject hero = InitHero(levelStaticData);
             InitHUD(hero);
             BindCamera(hero);
         }
 
-        private void InitSpawners()
+        private LevelStaticData GetLevelStaticData() =>
+            _staticData.ForLevel(SceneManager.GetActiveScene().name);
+
+        private GameObject InitHero(LevelStaticData levelStaticData) => 
+            _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
+
+        private void InitSpawners(LevelStaticData levelStaticData)
         {
-            string sceneKey = SceneManager.GetActiveScene().name;
-            LevelStaticData levelStaticData =  _staticData.ForLevel(sceneKey);
+
             foreach (EnemySpawnerData spawner in levelStaticData.EnemySpawners)
             {
                 _gameFactory.CreateSpawner(spawner.position, spawner.id, spawner.monsterTypeId);
