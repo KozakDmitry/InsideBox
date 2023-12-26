@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.6
+  m_fontSize: 35.5
   m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1148,6 +1148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 8603455547703233617}
+  SkullText: {fileID: 3836046123278168629}
+  AdItem: {fileID: 4008689598641760152}
 --- !u!1 &7257242645634537271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7257242646076108379}
   - component: {fileID: 7257242646076108357}
+  - component: {fileID: 4008689598641760152}
   m_Layer: 5
   m_Name: AdsItem_Container
   m_TagString: Untagged
@@ -1457,6 +1460,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7257242646076108378}
   m_CullTransparentMesh: 1
+--- !u!114 &4008689598641760152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257242646076108378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f811245125caf9e4db816cbe941b9b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowAdVideoButton: {fileID: 7257242644630378306}
+  AdActiveObjects:
+  - {fileID: 7257242645880703492}
+  - {fileID: 7257242644630378304}
+  AdInActiveObjects: []
 --- !u!1 &7257242646284126919
 GameObject:
   m_ObjectHideFlags: 0

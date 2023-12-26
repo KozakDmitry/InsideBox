@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 8967542131597977089}
   - component: {fileID: 2090867398883158693}
   - component: {fileID: 2163575515875646220}
-  - component: {fileID: 7443352678620911229}
+  - component: {fileID: 7889001718255499516}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -605,7 +605,7 @@ MonoBehaviour:
   Health: {fileID: 2090867398883158693}
   Animator: {fileID: 3525177863605392456}
   DeathFX: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
---- !u!114 &7443352678620911229
+--- !u!114 &7889001718255499516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1500939411536426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fd5b96c3c6163346baad11507e92e0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 74429f7275a176241a1132ff0b13d0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Hpbar: {fileID: 9171715836086121232}
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7259602490742047420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f8eac1c946b3c4d8ffeb584b03894a, type: 3}
+  m_Script: {fileID: 11500000, guid: b983ed60b95307e4690d861c559ca78f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ImageCurrent: {fileID: 7013979323491819900}
@@ -1428,7 +1428,7 @@ GameObject:
   - component: {fileID: 4077784933927131674}
   - component: {fileID: 2687099290463740627}
   - component: {fileID: 6720430520904480779}
-  - component: {fileID: 8693074167572264560}
+  - component: {fileID: 7414030460742686776}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1501,7 +1501,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &8693074167572264560
+--- !u!114 &7414030460742686776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1510,6 +1510,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7836839279605774411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cce82d1dd72a448af4ced8d8c50ace, type: 3}
+  m_Script: {fileID: 11500000, guid: 15ee2999a9c010546942779d6b101f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
