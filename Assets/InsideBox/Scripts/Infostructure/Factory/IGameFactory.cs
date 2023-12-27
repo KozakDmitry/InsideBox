@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infostructure.Services.PersistentProgress;
 using Scripts.Enemy;
 using Scripts.StaticData;
@@ -16,7 +17,7 @@ namespace Infostructure.Factory
         void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId);
 
         void CleanUp();
-        GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
+        Task<GameObject> CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
         LootPiece CreateLoot();
     }
 }

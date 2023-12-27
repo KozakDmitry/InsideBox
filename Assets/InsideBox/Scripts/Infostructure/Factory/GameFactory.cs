@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Infostructure.AssetManagеment;
 using Infostructure.Services.PersistentProgress;
 using Scripts.Enemy;
@@ -80,11 +81,14 @@ namespace Infostructure.Factory
             ProgressReaders.Clear();
             ProgressWriters.Clear();
         }
-        public GameObject CreateMonster(MonsterTypeId monsterTypeID, Transform parent)
+        public async Task<GameObject> CreateMonster(MonsterTypeId monsterTypeID, Transform parent)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(monsterTypeID);
-            GameObject monster = Object.Instantiate(monsterData.Prefab, parent.position, Quaternion.identity);
-            var health = monster.GetComponent<IHealth>();
+            GameObject prefab = await monsterData.PrefabReference
+                .LoadAssetAsync()
+                .Task;
+            GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity);
+            IHealth health = monster.GetComponent<IHealth>();
             health.Current = monsterData.Hp;
             health.Max = monsterData.Hp;
 
@@ -92,10 +96,10 @@ namespace Infostructure.Factory
             monster.GetComponent<AgentMoveToPlayer>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
-            var lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
             lootSpawner.Construct(this, AllServices.Container.Single<IRandomService>());
             lootSpawner.SetLoot(monsterData.minLoot,monsterData.maxLoot);
-            var attack = monster.GetComponent<Attack>();
+            Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
             attack.Damage = monsterData.Damage;
             attack.Damage = monsterData.Cleavage;
@@ -108,14 +112,14 @@ namespace Infostructure.Factory
 
         public LootPiece CreateLoot()
         {
-            var lootPiece = InstantiateRegistered(AssetPass.Loot).GetComponent<LootPiece>();
+            LootPiece lootPiece = InstantiateRegistered(AssetPass.Loot).GetComponent<LootPiece>();
             lootPiece.Construct(_progressService.Progress.worldData);
             return lootPiece;
         }
 
         public void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId)
         {
-            var spawner = InstantiateRegistered(AssetPass.Spawner)
+            SpawnPoint spawner = InstantiateRegistered(AssetPass.Spawner)
                 .GetComponent<SpawnPoint>();
             spawner.Construct(this);
             spawner.id = spawnerID;

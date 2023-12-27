@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Scripts.StaticData
 {
@@ -13,6 +14,9 @@ namespace Scripts.StaticData
         [Range(1,30)]
         public float Damage;
 
+        [Range(0f, 10f)]
+        public float MoveSpeed;
+
         public int minLoot;
         public int maxLoot;
 
@@ -23,8 +27,8 @@ namespace Scripts.StaticData
         public float Cleavage;
 
 
-        public GameObject Prefab;
+        public AssetReferenceGameObject PrefabReference;
 
-        public float MoveSpeed { get; set; }
+
     }
 }

@@ -7,6 +7,7 @@ namespace Scripts.Enemy
     {
 
         public NavMeshAgent Agent;
+        public float speed;
         private Transform _heroTransform;
 
         public void Construct(Transform heroTransform) =>
@@ -19,6 +20,7 @@ namespace Scripts.Enemy
         {
             if (_heroTransform)
             {
+                Agent.speed = speed;
                 Agent.destination = _heroTransform.position;
             }
         }
