@@ -10,7 +10,9 @@ using Scripts.StaticData;
 using Scripts.UI.Elements;
 using Scripts.UI.Services.Windows;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
 
 namespace Infostructure.Factory
@@ -80,13 +82,13 @@ namespace Infostructure.Factory
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
+            _assets.CleanUp();
         }
         public async Task<GameObject> CreateMonster(MonsterTypeId monsterTypeID, Transform parent)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(monsterTypeID);
-            GameObject prefab = await monsterData.PrefabReference
-                .LoadAssetAsync()
-                .Task;
+
+            GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
             GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity);
             IHealth health = monster.GetComponent<IHealth>();
             health.Current = monsterData.Hp;
