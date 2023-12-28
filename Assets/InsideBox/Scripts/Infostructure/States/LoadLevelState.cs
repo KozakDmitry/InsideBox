@@ -49,16 +49,14 @@ namespace Infostructure.States
 
         private async void OnLoaded()
         {
-            InitUIRoot();
+            await InitUIRoot();
             await InitGameWorld();
             InformProgressReader();
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitUIRoot()
-        {
-            _UIFactory.CreateUIRoot();
-        }
+        private async Task InitUIRoot() => 
+            await _UIFactory.CreateUIRoot();
 
         private void InformProgressReader()
         {
@@ -73,16 +71,16 @@ namespace Infostructure.States
             LevelStaticData levelStaticData = GetLevelStaticData();
 
             await InitSpawners(levelStaticData);
-            GameObject hero = InitHero(levelStaticData);
-            InitHUD(hero);
+            GameObject hero = await InitHero(levelStaticData);
+            await InitHUDAsync(hero);
             BindCamera(hero);
         }
 
         private LevelStaticData GetLevelStaticData() =>
             _staticData.ForLevel(SceneManager.GetActiveScene().name);
-
-        private GameObject InitHero(LevelStaticData levelStaticData) => 
-            _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
+         
+        private async Task<GameObject> InitHero(LevelStaticData levelStaticData) => 
+           await _gameFactory.CreateHeroAsync(levelStaticData.InitialHeroPosition);
 
         private async Task InitSpawners(LevelStaticData levelStaticData)
         {
@@ -93,9 +91,9 @@ namespace Infostructure.States
             }
         }
 
-        private void InitHUD(GameObject hero)
+        private async Task InitHUDAsync(GameObject hero)
         {
-            GameObject HUD = _gameFactory.CreateHUD();
+            GameObject HUD = await _gameFactory.CreateHUD();
             HUD.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
         }
 

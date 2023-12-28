@@ -1,8 +1,10 @@
-﻿namespace Scripts.UI.Services.Factory
+﻿using System.Threading.Tasks;
+
+namespace Scripts.UI.Services.Factory
 {
     public interface IUIFactory :IService
     {
-        void CreateUIRoot();
+        Task CreateUIRoot();
         void CreateShop();
     }
 }

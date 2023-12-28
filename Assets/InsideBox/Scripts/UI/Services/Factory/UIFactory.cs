@@ -6,13 +6,14 @@ using Scripts.StaticData.Windows;
 using Scripts.UI.Services.Windows;
 using Scripts.UI.Windows;
 using Scripts.UI.Windows.Shop;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Scripts.UI.Services.Factory
 {
     public class UIFactory : IUIFactory
     {
-        private const string UIRootPath = "UI/UIRoot";
+        private const string UIRootPath = "UIRoot";
 
         private readonly IStaticDataService _staticData;
         private readonly IPersistentProgressService _progressService;
@@ -37,7 +38,10 @@ namespace Scripts.UI.Services.Factory
             window.Construct(_adsService,_progressService);
         }
 
-        public void CreateUIRoot() =>
-            _UIRoot = _assets.InstantiatePrefab(UIRootPath).transform;
+        public async Task CreateUIRoot()
+        {
+            GameObject root = await _assets.InstantiatePrefab(UIRootPath);
+            _UIRoot = root.transform;
+        }
     }
 }

@@ -41,15 +41,15 @@ namespace Infostructure.Factory
             await _assets.Load<GameObject>(AssetAddress.Loot);
             await _assets.Load<GameObject>(AssetAddress.Spawner);
         }
-        public GameObject CreateHero(Vector3 initialPoint)
+        public async Task<GameObject> CreateHeroAsync(Vector3 initialPoint)
         {
-            HeroGameObject = InstantiateRegistered(AssetAddress.HeroPath, initialPoint);
-            return HeroGameObject;
+            HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, initialPoint);
+            return HeroGameObject; 
         }
 
-        public GameObject CreateHUD()
+        public async Task<GameObject> CreateHUD()
         {
-            GameObject hud = InstantiateRegistered(AssetAddress.HudPath);
+            GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HudPath);
             hud.GetComponentInChildren<LootCounter>()
                 .Construct(_progressService.Progress.worldData);
 
@@ -85,12 +85,18 @@ namespace Infostructure.Factory
         }
 
 
-        private GameObject InstantiateRegistered(string path, Vector3 position)
+        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 position)
         {
-            GameObject gameObject = _assets.InstantiatePrefab(path, position);
+            GameObject gameObject = await _assets.InstantiatePrefab(prefabPath, position);
             RegisterProgressWatchers(gameObject);
             return gameObject;
-        }   
+        }
+        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
+        {
+            GameObject gameObject = await _assets.InstantiatePrefab(prefabPath);
+            RegisterProgressWatchers(gameObject);
+            return gameObject;
+        }
         private GameObject InstantiateRegistered(GameObject prefab, Vector3 position)
         {
             GameObject gameObject = Object.Instantiate(prefab, position, Quaternion.identity);
@@ -103,12 +109,7 @@ namespace Infostructure.Factory
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
-        private GameObject InstantiateRegistered(string path)
-        {
-            GameObject gameObject = _assets.InstantiatePrefab(path);
-            RegisterProgressWatchers(gameObject);
-            return gameObject;
-        }
+      
 
         private void RegisterProgressWatchers(GameObject gameObject)
         {

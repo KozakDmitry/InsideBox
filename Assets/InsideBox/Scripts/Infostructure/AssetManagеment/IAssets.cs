@@ -8,8 +8,8 @@ namespace Infostructure.AssetManagеment
     {
         void CleanUp();
         void Initialize();
-        public GameObject InstantiatePrefab(string path);
-        public GameObject InstantiatePrefab(string path, Vector3 place);
+        public Task<GameObject> InstantiatePrefab(string address);
+        public Task<GameObject> InstantiatePrefab(string address, Vector3 place);
         Task<T> Load<T>(AssetReference prefabReference) where T : class;
         Task<T> Load<T>(string address) where T : class;
     }

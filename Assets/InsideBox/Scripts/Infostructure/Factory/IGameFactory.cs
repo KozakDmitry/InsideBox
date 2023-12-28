@@ -10,8 +10,8 @@ namespace Infostructure.Factory
 {
     public interface IGameFactory : IService
     {
-        GameObject CreateHero(Vector3 at);
-        GameObject CreateHUD();
+        Task<GameObject> CreateHeroAsync(Vector3 at);
+        Task<GameObject> CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
         Task CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId);

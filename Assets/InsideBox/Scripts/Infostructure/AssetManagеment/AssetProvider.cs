@@ -15,17 +15,11 @@ namespace Infostructure.AssetManagеment
         {
             Addressables.InitializeAsync();
         }
-        public GameObject InstantiatePrefab(string path)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
+        public Task<GameObject> InstantiatePrefab(string address) => 
+            Addressables.InstantiateAsync(address).Task;
 
-        public GameObject InstantiatePrefab(string path, Vector3 place)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, place, Quaternion.identity);
-        }
+        public Task<GameObject> InstantiatePrefab(string address, Vector3 place) => 
+            Addressables.InstantiateAsync(address, place, Quaternion.identity).Task;
 
         public async Task<T> Load<T>(AssetReference prefabReference) where T : class
         {
