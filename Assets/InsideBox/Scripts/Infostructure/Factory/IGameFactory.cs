@@ -14,10 +14,11 @@ namespace Infostructure.Factory
         GameObject CreateHUD();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        void CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId);
+        Task CreateSpawner(Vector3 at, string spawnerID, MonsterTypeId spawnerMonsterTypeId);
 
         void CleanUp();
         Task<GameObject> CreateMonster(MonsterTypeId monsterTypeID, Transform parent);
-        LootPiece CreateLoot();
+        Task WarmUp();
+        Task<LootPiece> CreateLoot();
     }
 }

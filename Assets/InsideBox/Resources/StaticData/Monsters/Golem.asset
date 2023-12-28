@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1091d843dbcd01c48b9cb8524682b2a0, type: 3}
   m_Name: Golem
   m_EditorClassIdentifier: 
-  MonsterTypeId: 0
-  Hp: 0
-  Damage: 0
-  minLoot: 0
-  maxLoot: 0
-  EffectiveDistance: 0.666
-  Cleavage: 0
-  Prefab: {fileID: 0}
+  MonsterTypeId: 10
+  Hp: 65
+  Damage: 17.8
+  MoveSpeed: 0
+  minLoot: 5
+  maxLoot: 20
+  EffectiveDistance: 0.718
+  Cleavage: 0.678
+  PrefabReference:
+    m_AssetGUID: fef8ee76ba818f84b81b11da6bda5ddf
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

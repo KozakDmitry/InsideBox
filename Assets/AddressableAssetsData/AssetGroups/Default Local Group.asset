@@ -16,7 +16,27 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 928c1451fafc9d94cadbc856ed7fc1a5
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 274c4c35ed05ea14c87492064b3cadfd
+    m_Address: BaseEnemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fef8ee76ba818f84b81b11da6bda5ddf
+    m_Address: Golem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c09d884e7ca40460f91e5b20675d3e94
+    m_Address: FatDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d587ba2fd38b20449986c007d26d2b8a
+    m_Address: Loot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 10b663335e391ce4382a5bfb8dd69f68
+    m_Address: SpawnPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a2c4ac796a9158345bdfb51cfb343b4b, type: 2}
   m_SchemaSet:

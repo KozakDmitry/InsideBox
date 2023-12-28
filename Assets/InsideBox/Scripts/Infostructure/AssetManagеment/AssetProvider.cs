@@ -11,6 +11,10 @@ namespace Infostructure.AssetManagеment
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new Dictionary<string, AsyncOperationHandle>();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new Dictionary<string, List<AsyncOperationHandle>>();
 
+        public void Initialize()
+        {
+            Addressables.InitializeAsync();
+        }
         public GameObject InstantiatePrefab(string path)
         {
             GameObject prefab = Resources.Load<GameObject>(path);
@@ -30,13 +34,31 @@ namespace Infostructure.AssetManagеment
                 return completedHandle.Result as T;
             }
 
-            AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(prefabReference);
-            handle.Completed += h =>
-            {
-                _completedCache[prefabReference.AssetGUID] = h;
-            };
-            AddHandle(handle, prefabReference.AssetGUID);
+            return await RunWithCacheOnComplete(
+                Addressables.LoadAssetAsync<T>(prefabReference), 
+                cachedKey: prefabReference.AssetGUID);
+        }
 
+
+
+        public async Task<T> Load<T>(string address) where T : class
+        {
+            if (_completedCache.TryGetValue(address, out AsyncOperationHandle completedHandle))
+            {
+                return completedHandle.Result as T;
+            }
+            return await RunWithCacheOnComplete(
+            Addressables.LoadAssetAsync<T>(address),
+            cachedKey: address);
+        }
+
+        private async Task<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cachedKey) where T : class
+        {
+            handle.Completed += completeHandle =>
+            _completedCache[cachedKey] = completeHandle;
+
+
+            AddHandle(handle, cachedKey);
             return await handle.Task;
         }
 
@@ -61,6 +83,10 @@ namespace Infostructure.AssetManagеment
                 }
             }
 
+            _completedCache.Clear();
+            _handles.Clear();
         }
+
+      
     }
 }

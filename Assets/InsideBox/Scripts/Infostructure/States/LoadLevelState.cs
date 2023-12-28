@@ -8,6 +8,7 @@ using Scripts.StaticData;
 using Scripts.UI.Elements;
 using Scripts.UI.Services.Factory;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,14 +42,15 @@ namespace Infostructure.States
         {
             _curtain.Show();
             _gameFactory.CleanUp();
+            _gameFactory.WarmUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
 
-        private void OnLoaded()
+        private async void OnLoaded()
         {
             InitUIRoot();
-            InitGameWorld();
+            await InitGameWorld();
             InformProgressReader();
             _stateMachine.Enter<GameLoopState>();
         }
@@ -66,11 +68,11 @@ namespace Infostructure.States
             }
         }
 
-        private void InitGameWorld()
+        private async Task InitGameWorld()
         {
             LevelStaticData levelStaticData = GetLevelStaticData();
 
-            InitSpawners(levelStaticData);
+            await InitSpawners(levelStaticData);
             GameObject hero = InitHero(levelStaticData);
             InitHUD(hero);
             BindCamera(hero);
@@ -82,12 +84,12 @@ namespace Infostructure.States
         private GameObject InitHero(LevelStaticData levelStaticData) => 
             _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
-        private void InitSpawners(LevelStaticData levelStaticData)
+        private async Task InitSpawners(LevelStaticData levelStaticData)
         {
 
             foreach (EnemySpawnerData spawner in levelStaticData.EnemySpawners)
             {
-                _gameFactory.CreateSpawner(spawner.position, spawner.id, spawner.monsterTypeId);
+                await _gameFactory.CreateSpawner(spawner.position, spawner.id, spawner.monsterTypeId);
             }
         }
 

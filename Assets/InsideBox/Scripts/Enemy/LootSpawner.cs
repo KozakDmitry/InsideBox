@@ -1,6 +1,4 @@
-﻿
-using System;
-using Infostructure.Factory;
+﻿using Infostructure.Factory;
 using Scripts.Data;
 using Scripts.Services.Randomizer;
 using UnityEngine;
@@ -28,14 +26,13 @@ namespace Scripts.Enemy
             _random = random;
         }
 
-        private void SpawnLoot()
+        private async void SpawnLoot()
         {
-            LootPiece loot = _factory.CreateLoot();
+            LootPiece loot = await _factory.CreateLoot();
             loot.transform.position = transform.position;
 
 
             var lootItem = GenerateLoot();
-
             loot.Initialize(lootItem);
         }
 

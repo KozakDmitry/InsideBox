@@ -15,8 +15,13 @@ MonoBehaviour:
   MonsterTypeId: 0
   Hp: 0
   Damage: 0
+  MoveSpeed: 0
   minLoot: 0
   maxLoot: 0
   EffectiveDistance: 0.666
   Cleavage: 0
-  Prefab: {fileID: 0}
+  PrefabReference:
+    m_AssetGUID: c09d884e7ca40460f91e5b20675d3e94
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
