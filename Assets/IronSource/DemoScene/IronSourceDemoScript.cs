@@ -96,7 +96,6 @@ public class IronSourceDemoScript : MonoBehaviour
         IronSourceEvents.onBannerAdLeftApplicationEvent += BannerAdLeftApplicationEvent;
 
         //Add ImpressionSuccess Event
-        IronSourceEvents.onImpressionSuccessEvent += ImpressionSuccessEvent;
         IronSourceEvents.onImpressionDataReadyEvent += ImpressionDataReadyEvent;
 
 
