@@ -39,8 +39,8 @@ namespace Infostructure.States
             var progress = new PlayerProgress(initialLevel: "Main");
             progress.HeroState.MaxHp = 50;
             progress.HeroState.ResetHp();
-            progress.HerosStats.Damage = 1f;
-            progress.HerosStats.Radius = 0.5f;
+            progress.HeroStats.Damage = 1f;
+            progress.HeroStats.Radius = 0.5f;
             return progress;
         }
 
