@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 928c1451fafc9d94cadbc856ed7fc1a5
   m_SerializeEntries:
   - m_GUID: 274c4c35ed05ea14c87492064b3cadfd
-    m_Address: BaseEnemy
+    m_Address: Lich
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fef8ee76ba818f84b81b11da6bda5ddf
